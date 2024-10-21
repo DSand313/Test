@@ -18,7 +18,9 @@ jobs:
           
           # Filter for merged PRs
           merged_prs=$(echo "$response" | jq -r 'map(select(.merged_at != null)) | .[] | "PR: \(.title) - \(.html_url)\nDescription: \(.body)"')
-          echo "prs=${merged_prs}" >> $GITHUB_ENV
+          echo "prs<<EOF" >> $GITHUB_ENV
+          echo "$merged_prs" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
 
       - name: Update wiki
         run: |
