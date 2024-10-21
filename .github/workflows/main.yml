@@ -25,4 +25,4 @@ jobs:
           # Replace OWNER, REPO, and PAGE_NAME with your specific details
           curl -X PUT -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
             -d "{\"content\": \"${CONTENT}\"}" \
-            "https://api.github.com/repos/DSand313/Test/wiki"
+            "https://api.github.com/repos/DSand313/Test/wiki/Home"
