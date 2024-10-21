@@ -20,14 +20,28 @@ jobs:
             "https://api.github.com/repos/${{ github.repository }}/pulls?state=closed&per_page=10")
           
           merged_prs=$(echo "$response" | jq -r 'map(select(.merged_at != null)) | .[] | "PR: \(.title) - \(.html_url)\nDescription: \(.body)"')
+
+          # Check if any merged PRs were found
+          if [ -z "$merged_prs" ]; then
+            echo "No merged PRs found."
+            exit 1
+          fi
+
           echo "prs<<EOF" >> $GITHUB_ENV
           echo "$merged_prs" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
 
+      - name: Debug merged PRs
+        run: echo "${{ env.prs }}"
+
       - name: Update wiki
         run: |
           CONTENT="### Latest Merged Pull Requests\n\n${{ env.prs }}"
+          echo "Updating wiki with content: $CONTENT"
           
-          curl -X PUT -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+          response=$(curl -s -o response.json -w "%{http_code}" -X PUT -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
             -d "{\"content\": \"${CONTENT}\"}" \
-            "https://api.github.com/repos/${{ github.repository }}/wiki/Home"
+            "https://api.github.com/repos/${{ github.repository }}/wiki/Home")
+          
+          echo "Response Code: $response"
+          cat response.json
