@@ -25,4 +25,4 @@ jobs:
           # Update the homepage of the wiki
           curl -X PUT -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
             -d "{\"content\": \"${CONTENT}\"}" \
-            "https://api.github.com/repos/${{ github.repository }}/wiki/Home"
+            "https://api.github.com/repos/${{ github.repository }}/wiki"
