@@ -1,3 +1,5 @@
+name: Update Wiki with Merged PRs
+
 on:
   push:
     branches:
@@ -16,13 +18,13 @@ jobs:
           
           # Filter for merged PRs
           merged_prs=$(echo "$response" | jq -r 'map(select(.merged_at != null)) | .[] | "PR: \(.title) - \(.html_url)\nDescription: \(.body)"')
-          echo "::set-output name=prs::${merged_prs}"
+          echo "prs=${merged_prs}" >> $GITHUB_ENV
 
       - name: Update wiki
         run: |
-          CONTENT="### Latest Merged Pull Requests\n\n${{ steps.fetch_prs.outputs.prs }}"
+          CONTENT="### Latest Merged Pull Requests\n\n${{ env.prs }}"
           
           # Update the homepage of the wiki
           curl -X PUT -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
             -d "{\"content\": \"${CONTENT}\"}" \
-            "https://api.github.com/repos/${{ github.repository }}/wiki"
+            "https://api.github.com/repos/${{ github.repository }}/wiki/Home"
