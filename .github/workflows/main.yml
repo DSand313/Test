@@ -34,10 +34,6 @@ jobs:
       - name: Debug merged PRs
         run: echo "${{ env.prs }}"
 
-      - name: Debug Wiki Update
-        run: |
-          echo "Updating Wiki URL: https://api.github.com/repos/${{ github.repository }}/wiki/Home"
-
       - name: Update wiki
         run: |
           CONTENT="### Latest Merged Pull Requests\n\n${{ env.prs }}"
@@ -45,7 +41,7 @@ jobs:
           
           response=$(curl -s -o response.json -w "%{http_code}" -X PUT -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
             -d "{\"content\": \"${CONTENT}\"}" \
-            "https://api.github.com/repos/${{ github.repository }}/wiki/Home")
+            "https://api.github.com/repos/${{ github.repository }}/wiki")
           
           echo "Response Code: $response"
           cat response.json
