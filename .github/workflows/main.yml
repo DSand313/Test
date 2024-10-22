@@ -34,7 +34,7 @@ jobs:
           echo "EOF" >> $GITHUB_ENV
 
       - name: Debug merged PRs
-        run: echo "${{ env.prs }}"
+        run: "${{ env.prs }}"
 
       - name: Debug Wiki Update
         run: |
