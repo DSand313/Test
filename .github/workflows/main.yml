@@ -34,11 +34,6 @@ jobs:
       - name: Debug merged PRs
         run: echo "${{ env.prs }}"
 
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          repository: DSand313/Test/wiki
-
       - name: Debug Wiki Update
         run: |
           echo "Updating Wiki URL: https://api.github.com/repos/${{ github.repository }}/wiki/Home"
