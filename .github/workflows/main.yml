@@ -13,8 +13,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
     
       - name: Fetch latest merged pull requests
         id: fetch_prs
@@ -35,6 +33,11 @@ jobs:
 
       - name: Debug merged PRs
         run: echo "${{ env.prs }}"
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          repository: DSand313/Test
 
       - name: Debug Wiki Update
         run: |
