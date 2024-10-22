@@ -40,7 +40,7 @@ jobs:
       - name: Update wiki
         run: |
           CONTENT="### Latest Merged Pull Requests\n\n${{ env.prs }}"
-          CONTENT_ESCAPED=$(echo "$CONTENT" | jq -sR .)
+          CONTENT_ESCAPED=$(echo -e "$CONTENT" | jq -sR .)
           echo "Updating wiki with content: $CONTENT_ESCAPED"
           
           response=$(curl -s -o response.json -w "%{http_code}" -X PUT -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
