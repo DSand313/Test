@@ -18,10 +18,9 @@ jobs:
         run: |
           response=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
             "https://api.github.com/repos/${{ github.repository }}/pulls?state=closed&per_page=10")
-          
+
           merged_prs=$(echo "$response" | jq -r 'map(select(.merged_at != null)) | .[] | "PR: \(.title) - \(.html_url)\nDescription: \(.body)"')
 
-          # Check if any merged PRs were found
           if [ -z "$merged_prs" ]; then
             echo "No merged PRs found."
             exit 1
@@ -41,11 +40,17 @@ jobs:
       - name: Update wiki
         run: |
           CONTENT="### Latest Merged Pull Requests\n\n${{ env.prs }}"
-          echo "Updating wiki with content: $CONTENT"
+          CONTENT_ESCAPED=$(echo "$CONTENT" | jq -sR .)
+          echo "Updating wiki with content: $CONTENT_ESCAPED"
           
           response=$(curl -s -o response.json -w "%{http_code}" -X PUT -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
-            -d "{\"content\": \"${CONTENT}\"}" \
-            "https://api.github.com/repos/DSand313/Test/wiki/test-1")
+            -d "{\"content\": $CONTENT_ESCAPED}" \
+            "https://api.github.com/repos/${{ github.repository }}/wiki/test-1")
           
           echo "Response Code: $response"
           cat response.json
+
+          if [ "$response" -ne 200 ]; then
+            echo "Failed to update wiki."
+            exit 1
+          fi
