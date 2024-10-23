@@ -48,8 +48,11 @@ jobs:
           CONTENT_ESCAPED=$(echo -e "$CONTENT" | jq -sR .)
           echo "Updating wiki with content: $CONTENT_ESCAPED"
           
-          response=$(curl -s -o response.json -w "%{http_code}" -X PUT -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
-            -H "Content-Type: application/json" \
+          response=$(curl -s -o response.json -w "%{http_code}" -L \
+            -X PUT \
+            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Accept: application/vnd.github+json" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
             -d "{\"content\": $CONTENT_ESCAPED}" \
             "https://api.github.com/repos/DSand313/Test/wiki/test-1")
           
