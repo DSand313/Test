@@ -36,6 +36,22 @@ jobs:
       - name: Debug merged PRs
         run: echo "${{ env.prs }}"
 
+      - name: Check token
+        run: |
+          token_check_response=$(curl -s -o token_check_response.json -w "%{http_code}" \
+            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/user")
+
+          # Check the response code
+          
+          if [ "$token_check_response" -ne 200 ]; then
+            echo "Invalid token. Response code: $token_check_response"
+            exit 1
+          else
+            echo "Token is valid."
+          fi
+
       - name: Check response
         run: |
           check_response=$(curl -s -o check_response.json -w "%{http_code}" \
