@@ -16,7 +16,7 @@ jobs:
 
       - uses: actions/checkout@v4
         with:
-          repository: DSand313/wiki
+          repository: DSand313/Test
     
       - name: Fetch latest merged pull requests
         id: fetch_prs
