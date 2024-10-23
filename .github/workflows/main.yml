@@ -47,6 +47,7 @@ jobs:
           echo "Updating wiki with content: $CONTENT_ESCAPED"
           
           response=$(curl -s -o response.json -w "%{http_code}" -X PUT -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Content-Type: application/json" \
             -d "{\"content\": $CONTENT_ESCAPED}" \
             "https://api.github.com/repos/DSand313/Test/wiki/test-1" -v)
           
