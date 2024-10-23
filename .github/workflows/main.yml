@@ -89,7 +89,7 @@ jobs:
             -H "Accept: application/vnd.github+json" \
             -H "X-GitHub-Api-Version: 2022-11-28" \
             -d "{\"content\": $CONTENT_ESCAPED}" \
-            "https://api.github.com/repos/${{ github.repository }}/wiki/test-1")
+            "https://api.github.com/repos/${{ github.repository }}/wiki/test-1" -v)
           
           echo "Response Code: $response"
           cat response.json
