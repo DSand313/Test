@@ -13,6 +13,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+
+      - name: Checkout main
+        uses: actions/checkout@v4
+      
+      - name: Checkout wiki
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ github.repository }}.wiki
     
       - name: Fetch latest merged pull requests
         id: fetch_prs
@@ -53,11 +61,6 @@ jobs:
             echo "Token is valid."
           fi
 
-      - name: Checkout wiki
-        uses: actions/checkout@v4
-        with:
-          repository: ${{ github.repository }}.wiki
-
       - name: Check response
         run: |
           check_response=$(curl -s -o check_response.json -w "%{http_code}" \
@@ -86,7 +89,7 @@ jobs:
             -H "Accept: application/vnd.github+json" \
             -H "X-GitHub-Api-Version: 2022-11-28" \
             -d "{\"content\": $CONTENT_ESCAPED}" \
-            "https://api.github.com/repos/${{ github.repository }}/wiki")
+            "https://api.github.com/repos/${{ github.repository }}/wiki/test-1")
           
           echo "Response Code: $response"
           cat response.json
