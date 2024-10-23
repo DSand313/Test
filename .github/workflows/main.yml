@@ -16,7 +16,7 @@ jobs:
 
       - uses: actions/checkout@v4
         with:
-          repository: DSand313/Test
+          repository: ${{ github.repository }}.wiki/test-1
     
       - name: Fetch latest merged pull requests
         id: fetch_prs
