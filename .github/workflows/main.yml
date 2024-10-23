@@ -6,7 +6,7 @@ on:
       - main  # Trigger only on pushes to the main branch
 
 permissions:
-  contents: read, write  # Allows write access to the repository contents
+  contents: write  # Allows write access to the repository contents
 
 jobs:
   update_wiki:
