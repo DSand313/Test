@@ -34,7 +34,7 @@ jobs:
       - name: Prepare wiki content
         id: prepare_content
         run: |
-          CONTENT="### Latest Merged Pull Requests\n\n${{ env.prs }}"
+          CONTENT="### Latest Merged Pull Requests\n\n ${{ env.prs }}"
           echo "content=${CONTENT}" >> $GITHUB_ENV
 
       - name: Update wiki
