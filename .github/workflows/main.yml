@@ -27,6 +27,7 @@ jobs:
             exit 1
           fi
 
+          # Create a multi-line environment variable
           echo "prs<<EOF" >> $GITHUB_ENV
           echo "$merged_prs" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
@@ -34,7 +35,7 @@ jobs:
       - name: Prepare wiki content
         id: prepare_content
         run: |
-          CONTENT="### Latest Merged Pull Requests\n\n ${{ env.prs }}"
+          CONTENT="### Latest Merged Pull Requests\n\n${{ env.prs }}"
           echo "content=${CONTENT}" >> $GITHUB_ENV
 
       - name: Update wiki
