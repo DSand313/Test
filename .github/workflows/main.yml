@@ -39,10 +39,6 @@ jobs:
       - name: Debug Wiki Update
         run: |
           echo "Updating Wiki URL: https://api.github.com/repos/${{ github.repository }}/wiki/test-1"
-
-      - uses: actions/checkout@v4
-        with:
-          repository: ${{ github.repository }}.wiki
           
       - name: Update wiki
         run: |
