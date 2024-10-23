@@ -38,7 +38,7 @@ jobs:
 
       - name: Debug Wiki Update
         run: |
-          echo "Updating Wiki URL: https://api.github.com/repos/DSand313/Test/wiki/test-1"
+          echo "Updating Wiki URL: https://api.github.com/repos/${{ github.repository }}/wiki/test-1"
 
       - uses: actions/checkout@v4
         with:
@@ -56,7 +56,7 @@ jobs:
             -H "Accept: application/vnd.github+json" \
             -H "X-GitHub-Api-Version: 2022-11-28" \
             -d "{\"content\": $CONTENT_ESCAPED}" \
-            "https://api.github.com/repos/DSand313/Test/wiki/test-1")
+            "https://api.github.com/repos/${{ github.repository }}/wiki/test-1")
           
           echo "Response Code: $response"
           cat response.json
