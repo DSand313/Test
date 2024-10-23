@@ -15,6 +15,8 @@ jobs:
     steps:
 
       - uses: actions/checkout@v4
+        with:
+          repository: ${{ github.repository }}.wiki
     
       - name: Fetch latest merged pull requests
         id: fetch_prs
