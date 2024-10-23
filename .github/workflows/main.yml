@@ -43,8 +43,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           repository: ${{ github.repository }}.wiki
-          path: test-1
-
+          
       - name: Update wiki
         run: |
           CONTENT="### Latest Merged Pull Requests\n\n${{ env.prs }}"
