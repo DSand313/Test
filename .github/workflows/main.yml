@@ -41,7 +41,7 @@ jobs:
           token_check_response=$(curl -s -o token_check_response.json -w "%{http_code}" \
             -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
             -H "Accept: application/vnd.github+json" \
-            "https://api.github.com/user")
+            "https://api.github.com/user" -v)
 
           # Check the response code
           
