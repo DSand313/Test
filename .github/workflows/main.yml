@@ -13,11 +13,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-
-      - uses: actions/checkout@v4
-        with:
-          repository: ${{ github.repository }}.wiki
-          path: test-1
     
       - name: Fetch latest merged pull requests
         id: fetch_prs
@@ -44,6 +39,11 @@ jobs:
       - name: Debug Wiki Update
         run: |
           echo "Updating Wiki URL: https://api.github.com/repos/DSand313/Test/wiki/test-1"
+
+      - uses: actions/checkout@v4
+        with:
+          repository: ${{ github.repository }}.wiki
+          path: test-1
 
       - name: Update wiki
         run: |
