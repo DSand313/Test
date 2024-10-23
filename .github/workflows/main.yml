@@ -53,6 +53,11 @@ jobs:
             echo "Token is valid."
           fi
 
+      - name: Checkout wiki
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ github.repository }}.wiki
+
       - name: Check response
         run: |
           check_response=$(curl -s -o check_response.json -w "%{http_code}" \
