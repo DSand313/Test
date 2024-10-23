@@ -32,7 +32,10 @@ jobs:
         id: prepare_content
         run: |
           CONTENT="### Latest Merged Pull Requests\n\n${{ env.prs }}"
-          echo "content=$CONTENT" >> $GITHUB_ENV
+          echo "content<<EOF" >> $GITHUB_ENV
+          echo "$CONTENT" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+
 
       - name: Update wiki
         uses: OrlovM/Wiki-Action@v1
