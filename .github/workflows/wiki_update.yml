@@ -16,7 +16,7 @@ jobs:
 
     - name: Replace content of a specific wiki page
       run: |
-        echo "This is the new content of the page." > wiki/test.md # Replace with your content
+        echo "How bout this." > wiki/test.md # Replace with your content
 
     - name: Configure Git
       run: |
