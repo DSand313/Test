@@ -1,0 +1,34 @@
+name: Update Wiki Page
+
+on:
+  workflow_dispatch: # Manually trigger the workflow
+
+jobs:
+  update-wiki:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout wiki repository
+      uses: actions/checkout@v4
+      with:
+        repository: ${{ github.repository }}.wiki
+        path: wiki
+
+    - name: Replace content of a specific wiki page
+      run: |
+        echo "This is the new content of the page." > wiki/test.md # Replace with your content
+
+    - name: Configure Git
+      run: |
+        cd wiki
+        git config user.name "GitHub Actions"
+        git config user.email "action@github.com"
+
+    - name: Commit and push changes
+      run: |
+        cd wiki
+        git add test.md
+        git commit -m "Replace content of page-name"
+        git push
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
